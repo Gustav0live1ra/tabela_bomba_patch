@@ -29,22 +29,18 @@ for c in range(1,total_partidas+1):
 
     l()
     print(f'{c:>60}º partida')
-    time_1 = str(input('jogador da casa: ')).lower()
-    time_2 = str(input('jogador de fora: ')).lower()
-    gols_1 = int(input('gols jogador casa: '))
-    gols_2 = int(input('gols jogador fora: '))
-    print()
-
-    #Sempre use "or" para validar ambos os jogadores.
-    #Assim, o código só continua quando ambos estiverem registrados.
-    if time_1 not in jogadores or time_2 not in jogadores:
-        while time_1 not in jogadores or time_2 not in jogadores:
-            print('JOGADOR NÃO REGISTRADO, POR FAVOR INSIRA OS DADOS CORRETAMENTE!\n')
-            time_1 = str(input('jogador da casa: ')).lower()
-            time_2 = str(input('jogador de fora: ')).lower()
-            gols_1 = int(input('gols jogador casa: '))
-            gols_2 = int(input('gols jogador fora: '))
-            print()
+    while True:
+        time_1 = str(input('jogador da casa: ')).lower().strip()
+        time_2 = str(input('jogador de fora: ')).lower().strip()
+        gols_1 = int(input('gols jogador casa: '))
+        gols_2 = int(input('gols jogador fora: '))
+        print()
+        #Sempre use "or" para validar ambos os jogadores.
+        #Assim, o código só continua quando ambos estiverem registrados.
+        if time_1 not in jogadores or time_2 not in jogadores or time_1 == time_2:
+            print('JOGADOR NÃO REGISTRADO E/OU REPETIDO, POR FAVOR INSIRA OS DADOS CORRETAMENTE!\n')
+            continue
+        break
     if gols_1 > gols_2:
         db.loc[db['jogador'] == time_1, 'jogos'] += 1
         db.loc[db['jogador'] == time_2, 'jogos'] += 1
